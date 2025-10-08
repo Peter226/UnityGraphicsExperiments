@@ -1,0 +1,9 @@
+- inflated frustum-aligned voxel rendering
+- render from 3 sides using instancing
+- probes are the shape of cubemaps, starting from just 6 rays / probe, cubemap resolution doubling each time
+- write each voxel / rendered pixel into 6 target positions (using depth test, atomic operation? test later if we could purely rasterize into flat texture)
+- each target ray origin position is calculated as if sampling cubemap
+- the target texture is 3d so we can use hardware interpolation between the 8 nearest probes
+- create mipmaps of the voxelized area so we can easily sample for various diffuse levels, the more diffuse the more downsampled we get until just 6 directions are left.
+- when calculating lighting of a pixel we choose the right mip according to the diffuse level
+- hinted mipmap generation? so only occupied areas get generated mipmaps
